@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:fragment="head">
+  <meta charset="UTF-8"/>
+  <link th:href="@{/css/bootstrap.min.css}"
+        rel="stylesheet">
+  <link th:href="@{/css/home.css}"
+        rel="stylesheet">
+  <title th:text="'Mobike: ' + ${title}"></title>
+</head>
+<body>
+
+<header th:fragment="header">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand">MOBIKE</a>
+      <ul class="navbar-nav mr-auto">
+        <li sec:authorize="hasRole('ROLE_ADMIN')">
+          <a class="nav-link" th:href="@{/admin/home}">Home</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_USER')">
+          <a class="nav-link" th:href="@{/usuario/home}">Home</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_USER')">
+          <a class="nav-link" th:href="@{/usuario/editar}">Editar mi perfil</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')">
+          <a class="nav-link" th:href="@{/admin/users}">Usuarios</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')">
+          <a class="nav-link" th:href="@{/admin/bikes}">Bicicletas</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <li sec:authorize="!isAuthenticated()">
+          <a class="btn btn-outline-primary" th:href="@{/login}">Iniciar sesión</a></li>
+        <li sec:authorize="isAuthenticated()">
+          <form th:action="@{/logout}" method="post">
+            <input class="btn btn-outline-primary" type="submit" value="Cerrar sesión"/>
+          </form>
+        </li>
+      </ul>
+  </nav>
+
+  <div class="alert alert-success" th:if="${success != null}"
+       th:text="${success}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span>&times;</span>
+    </button>
+  </div>
+  <div class="alert alert-danger" th:if="${error != null}"
+       th:text="${error}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="alert alert-warning" th:if="${warning != null}"
+       th:text="${warning}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="alert alert-info" th:if="${info != null}"
+       th:text="${info}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</header>
+
+<div class="container">
+
+
+</div>
+
+
+<footer th:fragment="footer" class="container bg-dark text-white">
+  <hr />
+  <img th:src="@{/images/spring.png}" alt="Spring logo" />
+  <p sec:authorize="isAuthenticated()">
+    Usuario logeado: <span sec:authentication="name"></span> | Roles: <span
+    sec:authentication="principal.authorities"></span>
+  </p>
+  <p>
+    Powered by <a href="https://projects.spring.io/spring-boot/">Spring
+    Boot</a> y <a href="http://www.thymeleaf.org">Thymeleaf</a>.
+  </p>
+  <p>
+    Este proyecto fue desarrollado en IDE Intelli + Spring Initializr
+    Inc. Todos los derechos reservados. Términos de uso y privacidad.<br />
+  </p>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Bootstrap JS -->
+  <script th:src="@{/js/jquery-3.4.1.slim.js}"></script>
+  <script th:src="@{/js/popper.min.js}"></script>
+  <script th:src="@{/js/bootstrap.min.js}"></script>
+<!--  <script th:src="@{/js/jquery-ui.min .js}"></script>-->
+</footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container py-4">
+  <div class="card bg-dark text-white">
+    <div class="card-header" th:text="${title}"></div>
+    <div class="card-body">
+      <div class="container">
+        <form method="post" th:action="@{/admin/newUser}" th:object="${usuario}">
+          <input th:field="*{id}" type="hidden"/>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">NOMBRE</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="name" name="name" th:field="*{name}" type="text"/>
+              <small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">APELLIDO</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="lastname" name="lastname" th:field="*{lastname}" type="text"/>
+              <small class="form-text text-danger" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">EMAIL</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="email" name="email" th:field="*{email}" type="text"/>
+              <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">PASSWORD</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="password" name="password" th:field="*{password}" type="text"/>
+              <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+            </div>
+          </div>
+          <div class="text-center">
+            <input class="btn btn-outline-success" type="submit" value="GUARDAR"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

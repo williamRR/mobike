@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+<div class="container py-4">
+
+  <div class="card bg-dark text-white">
+    <div class="card-header" th:text="${title}"></div>
+    <div class="card-body">
+      <h4 class="card-title">
+        Agregar Usuario
+      </h4>
+      <div class="container">
+        <table class="table table-dark table-bordered">
+          <thead th:if="${!users.isEmpty()}">
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody class="text-center" th:if="${users.isEmpty()}">
+          <h2>
+            No hay usuarios en la lista!
+          </h2>
+          </tbody>
+          <tbody th:if="${!users.isEmpty()}">
+          <tr th:each="usuario: ${users}">
+            <td th:text="${usuario.name}"></td>
+            <td th:text="${usuario.lastname}"></td>
+            <td th:text="${usuario.email}"></td>
+            <td class="text-center"><a class="btn btn-info btn-sm" th:href="@{/admin/newUser/}+${usuario.id}">EDITAR</a></td>
+            <td class="text-center"><a class="btn btn-danger btn-sm" onclick="return confirm('Esta seguro?')"
+                                       th:href="@{/admin/usuario/delete/}+${usuario.id}">ELIMINAR</a></td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <a class="btn btn-outline-info btn-sm mt-3" th:href="@{/admin/newUser}">AGREGAR USUARIO</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

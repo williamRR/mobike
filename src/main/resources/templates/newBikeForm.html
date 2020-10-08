@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container py-4">
+  <div class="card bg-dark text-white">
+    <div class="card-header" th:text="${title}"></div>
+    <div class="card-body">
+      <div class="container">
+        <form method="post" th:action="@{/admin/newBike}" th:object="${bike}">
+          <input th:field="*{id}" type="hidden">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">TAMAÑO</label>
+            <div class="col-sm-6">
+              <input class="form-control" id="size" name="size" th:errorclass="'form-control alert-danger'"
+                     th:field="*{size}"
+                     type="text"/>
+              <small class="form-text text-danger" th:errors="*{size}" th:if="${#fields.hasErrors('size')}"></small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">MARCA</label>
+            <div class="col-sm-6">
+              <input class="form-control" id="branch" name="branch" th:errorclass="'form-control alert-danger'"
+                     th:field="*{branch}"
+                     type="text"/>
+              <small class="form-text text-danger" th:errors="*{branch}" th:if="${#fields.hasErrors('branch')}"></small>
+            </div>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-control"
+              id="availableFlag"
+              name="availableFlag"
+              th:errorclass="'form-control alert-danger'"
+              th:field="*{availableFlag}"
+                   type="checkbox"/>
+            <label class="col-sm-2 col-form-label">Disponibilidad</label>
+            <div class="col-sm-6">
+
+              <small class="form-text text-danger" th:errors="*{availableFlag}"
+                     th:if="${#fields.hasErrors('availableFlag')}"></small>
+            </div>
+          </div>
+          <div>
+            <input class="btn btn-outline-secondary" type="submit" value="GUARDAR"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
